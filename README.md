@@ -1,4 +1,5 @@
 # Qu-Mongoid
+[![Build Status](https://secure.travis-ci.org/dwbutler/qu-mongoid.png)](http://travis-ci.org/dwbutler/qu-mongoid)
 
 This gem provides a Mongoid/Moped backend for the queueing library [Qu](bkeepers/qu). See the documentation for Qu for more information.
 
