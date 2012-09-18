@@ -1,13 +1,13 @@
 # Qu-Mongoid
 [![Build Status](https://secure.travis-ci.org/dwbutler/qu-mongoid.png)](http://travis-ci.org/dwbutler/qu-mongoid)
 
-This gem provides a Mongoid/Moped backend for the queueing library [Qu](bkeepers/qu). See the documentation for Qu for more information.
+This gem provides a Mongoid/Moped backend for the queueing library [Qu](http://github.com/bkeepers/qu). See the documentation for Qu for more information.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'qu-rails'
+    gem 'qu'
     gem 'qu-mongoid'
 
 And then execute:
@@ -24,7 +24,7 @@ Starting with version 3, Mongoid uses its own mongoDB driver (Moped) instead of 
 
 ## Configuration
 
-Qu-Mongoid will automatically connect to the default connection specified in mongoid.yml. If a default connection is not specified, it will attempt to read from ENV['MONGOHQ_URL'] and ENV['MONGOLAB_URI'], so it should work on Heroku. If you need to use a different Mongoid connection, you can do the following in an initializer:
+Qu-Mongoid will automatically connect to the default connection specified in mongoid.yml. If a default connection is not specified, it will attempt to read from ENV['MONGOHQ_URL'] and ENV['MONGOLAB_URI'], so it should work on Heroku. If you need to use a different Mongoid connection, you can do the following:
 
 ``` ruby
 Qu.configure do |c|
