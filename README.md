@@ -30,7 +30,7 @@ Qu-Mongoid will automatically connect to the default session configured in mongo
 
 ``` ruby
 Qu.configure do |c|
-  c.connection = Mongoid.sessions[:qu]
+  c.connection = Mongoid::Sessions.with_name(:qu)
 end
 ```
 
