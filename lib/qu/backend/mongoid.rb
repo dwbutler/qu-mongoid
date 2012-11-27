@@ -20,7 +20,7 @@ module Qu
       end
 
       def connection
-        @connection ||= begin
+        Thread.current["[qu-mongoid]:#{self.object_id}:connection"] ||= begin
           unless ::Mongoid.sessions[:default]
             if (uri = (ENV['MONGOHQ_URL'] || ENV['MONGOLAB_URI']).to_s) && !uri.empty?
               ::Mongoid.sessions = {:default => {:uri => uri, :max_retries_on_connection_failure => 4}}
@@ -32,6 +32,10 @@ module Qu
         end
       end
       alias_method :database, :connection
+
+      def connection=(conn)
+        Thread.current["[qu-mongoid]:#{self.object_id}:connection"] = conn
+      end
 
       def clear(queue = nil)
         queue ||= queues + ['failed']
