@@ -26,6 +26,14 @@ describe Qu::Backend::Mongoid do
       subject.instance_eval {@connection=nil}
       ::Mongoid.connect_to('qu')
     end
+    
+    it 'should use a separate connection in each thread' do
+      backend = subject
+      connection = subject.connection
+      separate_connection = false
+      Thread.new { separate_connection = (backend.connection != connection) }.join
+      separate_connection.should be_true
+    end
   end
 
   describe 'reserve' do
