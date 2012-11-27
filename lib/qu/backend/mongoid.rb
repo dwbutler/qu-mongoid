@@ -12,23 +12,26 @@ module Qu
 
       # Seconds to wait before looking for more jobs when the queue is empty (default: 5)
       attr_accessor :poll_frequency
+      
+      attr_accessor :session
 
       def initialize
         self.max_retries     = 5
         self.retry_frequency = 1
         self.poll_frequency  = 5
+        self.session = :default
       end
 
       def connection
         Thread.current[self.to_s] ||= begin
-          unless ::Mongoid.sessions[:default]
+          unless ::Mongoid.sessions[@session]
             if (uri = (ENV['MONGOHQ_URL'] || ENV['MONGOLAB_URI']).to_s) && !uri.empty?
               ::Mongoid.sessions = {:default => {:uri => uri, :max_retries_on_connection_failure => 4}}
             else
               ::Mongoid.connect_to('qu')
             end
           end
-          ::Mongoid::Sessions.default
+          ::Mongoid::Sessions.with_name(@session)
         end
       end
       alias_method :database, :connection
