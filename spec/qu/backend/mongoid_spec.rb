@@ -1,10 +1,6 @@
 require 'spec_helper'
 require 'qu-mongoid'
 
-module Qu
-  def_delegators :backend, :session, :session=
-end
-
 describe Qu::Backend::Mongoid do
   it_should_behave_like 'a backend'
 
@@ -35,7 +31,7 @@ describe Qu::Backend::Mongoid do
       ::Mongoid.sessions[:qu] = {:uri => 'mongodb://127.0.0.1:27017/quspec', :max_retries_on_connection_failure => 4}
       Qu.backend = subject
       Qu.configure do |c|
-        c.session = :qu
+        c.backend.session = :qu
       end
       subject.connection.should == ::Mongoid::Sessions.with_name(:qu)
       
