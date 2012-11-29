@@ -37,6 +37,12 @@ module Qu
       alias_method :database, :connection
 
       def connection=(conn)
+        warn %q(If you are using threads, setting the Qu::Mongoid connection will not work. Configure the session instead.
+Example:
+  Qu.configure do |c|
+    c.backend.session = :qu
+  end
+)
         Thread.current[self.to_s] = conn
       end
 

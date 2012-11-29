@@ -26,11 +26,19 @@ Mongoid version 2 and below uses the mongo driver, so use qu-mongo if you are on
 
 ## Configuration
 
-Qu-Mongoid will automatically connect to the default session configured in mongoid.yml. If a default session is not configured, it will attempt to read from ENV['MONGOHQ_URL'] and ENV['MONGOLAB_URI'], so it should work on Heroku. If you need to use a different Mongoid connection, you can do the following:
+Qu-Mongoid will automatically connect to the default session configured in mongoid.yml. If a default session is not configured, it will attempt to read from ENV['MONGOHQ_URL'] and ENV['MONGOLAB_URI'], so it should work on Heroku. If you need to use a different Mongoid session, you should do the following:
+
+```ruby
+Qu.configure do |c|
+  c.backend.session = :qu
+end
+```
+
+You may also configure the Qu connection using the code below, but **WARNING**: if you are running your workers in threads, this configuration is **NOT** recommended. This is because Mongoid uses a separate connection on each thread, so only the original thread will use the configured connection. New threads will use the default Mongoid session as described above.
 
 ``` ruby
 Qu.configure do |c|
-  c.connection = Mongoid::Sessions.with_name(:qu)
+  c.connection = Mongoid::Sessions.with_name(:qu) # New threads will not use this configured connection.
 end
 ```
 
