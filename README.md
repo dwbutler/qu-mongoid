@@ -7,8 +7,10 @@ This gem provides a Mongoid 3 / Moped backend for the queueing library [Qu](http
 
 Add this line to your application's Gemfile:
 
-    gem 'qu'
-    gem 'qu-mongoid'
+```ruby
+gem 'qu'
+gem 'qu-mongoid'
+```
 
 And then execute:
 
@@ -26,7 +28,7 @@ Mongoid version 2 and below uses the mongo driver, so use qu-mongo if you are on
 
 ## Configuration
 
-Qu-Mongoid will automatically connect to the default session configured in mongoid.yml. If a default session is not configured, it will attempt to read from ENV['MONGOHQ_URL'] and ENV['MONGOLAB_URI'], so it should work on Heroku. If you need to use a different Mongoid session, you should do the following:
+Qu-Mongoid will automatically connect to the default session configured in mongoid.yml. If a default session is not configured, it will attempt to read from ```ENV['MONGOHQ_URL']``` and ```ENV['MONGOLAB_URI']```, so it should work on Heroku. If you need to use a different Mongoid session, you should do the following:
 
 ```ruby
 Qu.configure do |c|
