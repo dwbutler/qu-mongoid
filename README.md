@@ -20,6 +20,8 @@ Or install it yourself as:
 
     $ gem install qu-mongoid
 
+Tested in Ruby 1.9.3, 2.0.0, JRuby (1.9 mode), and Rubinius (1.9 mode). Ruby 1.8.7 is not supported because Mongoid 3 only supports Ruby 1.9+.
+
 ## Why not just use the Mongo backend?
 
 Starting with version 3, Mongoid uses its own mongoDB driver (Moped) instead of the official 10gen ruby driver (mongo). To avoid loading both drivers, I ported the Mongo backend to Mongoid/Moped.
