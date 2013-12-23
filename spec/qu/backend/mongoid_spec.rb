@@ -54,7 +54,7 @@ describe Qu::Backend::Mongoid do
       
       ENV['MONGOHQ_URL'] = 'mongodb://127.0.0.1:27017/quspec'
       subject.connection.options[:database].should == 'quspec'
-      subject.connection.cluster.nodes.first.resolved_address.should == "127.0.0.1:27017"
+      subject.connection.cluster.nodes.first.address.resolved.should == "127.0.0.1:27017"
       ::Mongoid.sessions[:default][:hosts].should include("127.0.0.1:27017")
       
       # Clean up MONGOHQ stuff
