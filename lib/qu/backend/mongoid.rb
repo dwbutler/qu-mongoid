@@ -64,8 +64,19 @@ Example:
         jobs(queue).find.count
       end
 
+      if defined?(::Moped::BSON::ObjectId)
+        def new_id
+          ::Moped::BSON::ObjectId.new
+        end
+      else
+        def new_id
+          ::BSON::ObjectId.new
+        end
+      end
+      private :new_id
+
       def enqueue(payload)
-        payload.id = ::Moped::BSON::ObjectId.new
+        payload.id = new_id
         jobs(payload.queue).insert({:_id => payload.id, :klass => payload.klass.to_s, :args => payload.args})
         self[:queues].where({:name => payload.queue}).upsert({:name => payload.queue})
         logger.debug { "Enqueued job #{payload}" }
